@@ -8,12 +8,13 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
-
+@Parcel
 public class Movie {
     /*
     public static final String CONFIGURATIONS_URL =
@@ -23,6 +24,8 @@ public class Movie {
     String backdropPath;
     String title;
     String overview;
+
+    public Movie() {}
 
     public Movie(JSONObject jsonObject) throws JSONException {
         // Extract movie's attributes from json object representing movie
