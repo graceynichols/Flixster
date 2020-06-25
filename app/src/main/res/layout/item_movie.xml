@@ -34,7 +34,8 @@
         android:layout_below="@+id/tvTitle"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        
+        android:ellipsize="end"
+        android:maxLines="9"
         android:layout_toEndOf="@+id/ivPoster"
 
         android:text="In a suburban fantasy world, two teenage elf brothers embark on an extraordinary quest to discover if there is still a little magic left out there." />
