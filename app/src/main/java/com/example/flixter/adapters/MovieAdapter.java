@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.service.autofill.TextValueSanitizer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.Target;
 import com.example.flixter.MovieDetailsActivity;
@@ -110,35 +112,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview.setText(movie.getOverview());
             // Use glide to render images
             String imageUrl;
-            int radius;
-            int margin;
+            int radius = 35;
+            int margin = 0;
+            RequestBuilder <Drawable> image;
             // Change image depending on phone orientation
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 // Phone is in landscape
-                radius = 60;
-                margin = 0;
                 imageUrl = movie.getBackdropPath();
-                Glide.with(context).load(imageUrl)
+                image = Glide.with(context).load(imageUrl)
                         .placeholder(R.drawable.flicks_backdrop_placeholder)
-                        .error(R.drawable.flicks_backdrop_placeholder)
-                        .transform(new RoundedCornersTransformation(radius,
-                        margin)).fitCenter().into(ivPoster);
+                        .error(R.drawable.flicks_backdrop_placeholder);
+
             } else {
-                radius = 20;
-                margin = 0;
                 imageUrl = movie.getPosterPath();
-                Glide.with(context).load(imageUrl).placeholder(R.drawable.flicks_movie_placeholder)
-                        .error(R.drawable.flicks_movie_placeholder).transform(new RoundedCornersTransformation(radius,
-                        margin)).override(Target.SIZE_ORIGINAL).into(ivPoster);
+                image = Glide.with(context).load(imageUrl).placeholder(R.drawable.flicks_movie_placeholder)
+                        .error(R.drawable.flicks_movie_placeholder);
             }
-
-            //
-
-
-            //Glide.with(context).load(imageUrl).into(ivPoster);
-
+            image.fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         }
-
-
     }
 }
