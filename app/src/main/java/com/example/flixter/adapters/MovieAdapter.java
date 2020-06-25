@@ -61,11 +61,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         // Alternate colors of recyclerview rows
         if(position %2 == 1)
         {
+            // White
             holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
         else
         {
-            holder.itemView.setBackgroundColor(Color.parseColor("#c7ebe8"));
+            // Light blue
+            holder.itemView.setBackgroundColor(Color.parseColor("#f0fcfa"));
         }
     }
 
