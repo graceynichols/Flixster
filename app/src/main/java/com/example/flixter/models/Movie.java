@@ -20,6 +20,7 @@ public class Movie {
     public static final String CONFIGURATIONS_URL =
             "https://api.themoviedb.org/3/configuration?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG_CONFIG = "Configuration";*/
+    Double voteAverage;
     String posterPath;
     String backdropPath;
     String title;
@@ -33,6 +34,7 @@ public class Movie {
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
+        voteAverage = jsonObject.getDouble("vote_average");
     }
 
     // Creates list of movie objects from json array
@@ -85,5 +87,9 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
     }
 }
