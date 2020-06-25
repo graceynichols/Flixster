@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         // Alternate colors of recyclerview rows
         if(position %2 == 1)
         {
-            holder.itemView.setBackgroundColor(Color.parseColor("#79dbd3"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
         else
         {
@@ -110,17 +110,31 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview.setText(movie.getOverview());
             // Use glide to render images
             String imageUrl;
+            int radius;
+            int margin;
             // Change image depending on phone orientation
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // Phone is in landscape
+                radius = 60;
+                margin = 0;
                 imageUrl = movie.getBackdropPath();
+                Glide.with(context).load(imageUrl)
+                        .placeholder(R.drawable.flicks_backdrop_placeholder)
+                        .error(R.drawable.flicks_backdrop_placeholder)
+                        .transform(new RoundedCornersTransformation(radius,
+                        margin)).fitCenter().into(ivPoster);
             } else {
+                radius = 20;
+                margin = 0;
                 imageUrl = movie.getPosterPath();
+                Glide.with(context).load(imageUrl).placeholder(R.drawable.flicks_movie_placeholder)
+                        .error(R.drawable.flicks_movie_placeholder).transform(new RoundedCornersTransformation(radius,
+                        margin)).override(Target.SIZE_ORIGINAL).into(ivPoster);
             }
-            int radius = 20;
-            int margin = 0;
+
             //
-            Glide.with(context).load(imageUrl).transform(new RoundedCornersTransformation(radius,
-                    margin)).override(Target.SIZE_ORIGINAL).into(ivPoster);
+
+
             //Glide.with(context).load(imageUrl).into(ivPoster);
 
         }
