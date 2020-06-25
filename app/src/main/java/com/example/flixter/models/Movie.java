@@ -25,6 +25,8 @@ public class Movie {
     String backdropPath;
     String title;
     String overview;
+    Double pop;
+    Integer id;
 
     public Movie() {}
 
@@ -35,6 +37,8 @@ public class Movie {
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
+        pop = jsonObject.getDouble("popularity");
+        id = jsonObject.getInt("id");
     }
 
     // Creates list of movie objects from json array
@@ -81,6 +85,10 @@ public class Movie {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
 
+    public String getVideo() {
+
+    }
+
     public String getTitle() {
         return title;
     }
@@ -92,4 +100,8 @@ public class Movie {
     public Double getVoteAverage() {
         return voteAverage;
     }
+
+    public Double getPop() { return pop; }
+
+    public int getId() { return id; }
 }
