@@ -20,11 +20,13 @@ public class Movie {
             "https://api.themoviedb.org/3/configuration?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG_CONFIG = "Configuration";*/
     String posterPath;
+    String backdropPath;
     String title;
     String overview;
 
     public Movie(JSONObject jsonObject) throws JSONException {
         // Extract movie's attributes from json object representing movie
+        backdropPath = jsonObject.getString("backdrop_path");
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
@@ -37,6 +39,11 @@ public class Movie {
             movies.add(new Movie(movieJsonArray.getJSONObject(i)));
         }
         return movies;
+    }
+
+    public String getBackdropPath() {
+        // TODO get prefix from api instead of hardcoding
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
 
     public String getPosterPath() {

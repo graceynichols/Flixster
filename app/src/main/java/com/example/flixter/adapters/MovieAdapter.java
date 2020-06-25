@@ -1,6 +1,7 @@
 package com.example.flixter.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.service.autofill.TextValueSanitizer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,7 +73,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             // Use glide to render images
-            Glide.with(context).load(movie.getPosterPath()).into(ivPoster);
+            String imageUrl;
+            // Change image depending on phone orientation
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                imageUrl = movie.getBackdropPath();
+            } else {
+                imageUrl = movie.getPosterPath();
+            }
+
+            Glide.with(context).load(imageUrl).into(ivPoster);
 
         }
     }
