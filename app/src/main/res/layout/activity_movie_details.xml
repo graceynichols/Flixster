@@ -81,4 +81,20 @@
         android:layout_marginTop="-1dp"
         android:text="Popularity:"
         android:textColor="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/thumb"
+        android:layout_width="match_parent"
+        android:layout_height="207dp"
+        android:layout_below="@+id/tvOverview"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="298dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </RelativeLayout>

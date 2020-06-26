@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.flixter.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,17 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
+
+
+
 @Parcel
 public class Movie {
     /*
     public static final String CONFIGURATIONS_URL =
             "https://api.themoviedb.org/3/configuration?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG_CONFIG = "Configuration";*/
+    public static final String TAG = "Movies";
     Double voteAverage;
     String posterPath;
     String backdropPath;
     String title;
     String overview;
+    String vidKey;
     Double pop;
     Integer id;
 
@@ -83,10 +89,6 @@ public class Movie {
             }
         });*/
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
-    }
-
-    public String getVideo() {
-
     }
 
     public String getTitle() {

@@ -130,6 +130,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 image = Glide.with(context).load(imageUrl).placeholder(R.drawable.flicks_movie_placeholder)
                         .error(R.drawable.flicks_movie_placeholder);
             }
+            // Round corners
             image.fitCenter().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         }
     }
