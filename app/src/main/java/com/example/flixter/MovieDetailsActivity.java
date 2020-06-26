@@ -2,6 +2,8 @@ package com.example.flixter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixter.models.Movie;
+import com.example.flixter.models.PlayTrailerActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +28,8 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class MovieDetailsActivity extends AppCompatActivity {
-    public static final String URL_PREF = "https://api.themoviedb.org/3/movie/";
-    public static final String URL_MID = "/videos?api_key=";
-    public static final String URL_SUF = "&language=en-US";
-    public static final String TAG = "Movies";
-    public static String vidKey;
+    public static final String TAG = "MovieDetailsActivity";
+    Context context;
     Movie movie;
 
     // View objects
@@ -43,6 +43,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+
+        context = this;
 
         // Resolve the view objects
         tvTitle = findViewById(R.id.tvTitle);
@@ -73,57 +75,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                // Launch PlayTrailerActivity
-                playVideo(movie);
+                // Launch Play Trailer activity
+                Intent intent = new Intent(context, PlayTrailerActivity.class);
+                // Serialize the movie using parceler
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                context.startActivity(intent);
             }
         });
     }
 
-    public void playVideo(Movie movie) {
-        // TODO make void?
-        // Create MdbUrl for request
-        String mdbUrl = getMdbUrl(movie);
-        Log.d("MDB URL", mdbUrl);
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        //Request the data from database;
-        client.get(mdbUrl, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    // Get the results JSON array from MDB API
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    JSONObject vidObj = (JSONObject) results.get(0);
-                    Log.d("Results 0 ", vidObj.toString());
-
-                    // Get the key to make the youtube URL
-                    vidKey = vidObj.getString("key");
-                    Log.d("Video key", vidKey);
-                    String youtubeURL =  makeYoutubeURL(vidKey);
-                    Log.d("Youtube URL", youtubeURL);
 
 
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit json exception (video)", e);
-                }
-            }
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure");
-            }
-        });
-        return;
-    }
 
-    public static String makeYoutubeURL(String key) {
-        return "https://www.youtube.com/watch?v=" + key;
-    }
-
-    public String getMdbUrl(Movie movie) {
-        String apiKey = getString(R.string.mdbKey);
-        Log.d("MDB Key", apiKey);
-        return URL_PREF + movie.getId() + URL_MID + apiKey + URL_SUF;
-    }
 }
