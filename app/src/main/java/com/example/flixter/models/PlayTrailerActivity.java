@@ -8,6 +8,10 @@ import android.util.Log;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixter.R;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,12 +20,13 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
-public class PlayTrailerActivity extends AppCompatActivity {
+public class PlayTrailerActivity extends YouTubeBaseActivity {
     public static final String URL_PREF = "https://api.themoviedb.org/3/movie/";
     public static final String URL_MID = "/videos?api_key=";
     public static final String URL_SUF = "&language=en-US";
     public static String vidKey;
     public static String TAG = "PlayTrailerActivity";
+    String youtubeKey;
     Movie movie;
 
     @Override
@@ -56,15 +61,28 @@ public class PlayTrailerActivity extends AppCompatActivity {
                     Log.d("Results 0 ", vidObj.toString());
 
                     // Get the key to make the youtube URL
+                    youtubeKey = getString(R.string.youtubeKey);
                     vidKey = vidObj.getString("key");
                     Log.d("Video key", vidKey);
-                    String youtubeURL =  makeYoutubeURL(vidKey);
-                    Log.d("Youtube URL", youtubeURL);
+                    Log.d("Youtube key", youtubeKey);
 
+                    YouTubePlayerView playerView = findViewById(R.id.player);
 
-
-
-
+                    // initialize with API key stored in secrets.xml
+                    playerView.initialize(getString(R.string.youtubeKey), new YouTubePlayer.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                            YouTubePlayer youTubePlayer, boolean b) {
+                            // do any work here to cue video, play video, etc.
+                            youTubePlayer.loadVideo(vidKey);
+                        }
+                        @Override
+                        public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                            YouTubeInitializationResult youTubeInitializationResult) {
+                            // log the error
+                            Log.e("MovieTrailerActivity", "Error initializing YouTube player");
+                        }
+                    });
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception (video)", e);
                 }
@@ -81,9 +99,5 @@ public class PlayTrailerActivity extends AppCompatActivity {
         String apiKey = getString(R.string.mdbKey);
         Log.d("MDB Key", apiKey);
         return URL_PREF + movie.getId() + URL_MID + apiKey + URL_SUF;
-    }
-
-    public static String makeYoutubeURL(String key) {
-        return "https://www.youtube.com/watch?v=" + key;
     }
 }
