@@ -22,6 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.Target;
 import com.example.flixter.MovieDetailsActivity;
 import com.example.flixter.R;
+import com.example.flixter.databinding.ActivityMainBinding;
+import com.example.flixter.databinding.ItemMovieBinding;
 import com.example.flixter.models.Movie;
 
 import org.parceler.Parcels;
@@ -44,15 +46,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        ItemMovieBinding binding = ItemMovieBinding.inflate(inflater);
         Log.d("MovieAdapter", "onCreateViewHolder");
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
-        return new ViewHolder(movieView);
+        return new ViewHolder(binding);
     }
 
     // Populate data into the view through the viewholder (take data at that position and put it
     // In the view contained by the viewholder)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Log.d("MovieAdapter", "onBindViewHolder" + position);
         // Get the movie at the position
         Movie movie = movies.get(position);
@@ -83,15 +87,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvOverview;
         ImageView ivPoster;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        // Binding class for a row in recycler view
+        ItemMovieBinding binding;
+
+        public ViewHolder(ItemMovieBinding b) {
+            super(b.getRoot());
             // Get the elements of your layout
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
+            tvTitle = b.tvTitle;
+            tvOverview = b.tvOverview;
+            ivPoster = b.ivPoster;
+            binding = b;
 
             // add this as the itemView's OnClickListener
-            itemView.setOnClickListener(this);
+            binding.getRoot().setOnClickListener(this);
         }
 
         @Override

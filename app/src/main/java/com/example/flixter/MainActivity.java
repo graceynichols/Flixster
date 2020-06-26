@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixter.adapters.MovieAdapter;
+import com.example.flixter.databinding.ActivityMainBinding;
 import com.example.flixter.models.Movie;
 
 import org.json.JSONArray;
@@ -33,13 +37,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
         movies = new ArrayList<>();
 
-        /* Using adapter to bind movie data to layout */
+        RecyclerView rvMovies = binding.rvMovies;
 
+        /* Using adapter to bind movie data to layout */
         // Create an adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
@@ -48,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set a layout manager on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
-
 
         AsyncHttpClient client = new AsyncHttpClient();
         // Request the data from database

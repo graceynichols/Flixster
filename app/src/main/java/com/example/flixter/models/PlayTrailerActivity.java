@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixter.R;
+import com.example.flixter.databinding.ActivityMovieDetailsBinding;
+import com.example.flixter.databinding.ActivityPlayTrailerBinding;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -33,6 +36,9 @@ public class PlayTrailerActivity extends YouTubeBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_trailer);
+        ActivityPlayTrailerBinding binding = ActivityPlayTrailerBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         Log.d("PlayTrailerActivity", "Activity started");
         // Unwrap movie passed by intent
@@ -42,7 +48,9 @@ public class PlayTrailerActivity extends YouTubeBaseActivity {
     }
 
     public void playVideo(Movie movie) {
-        // TODO make void?
+        final ActivityPlayTrailerBinding binding = ActivityPlayTrailerBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         // Create MdbUrl for request
         String mdbUrl = getMdbUrl(movie);
         Log.d("MDB URL", mdbUrl);
@@ -58,7 +66,7 @@ public class PlayTrailerActivity extends YouTubeBaseActivity {
                     // Get the results JSON array from MDB API
                     JSONArray results = jsonObject.getJSONArray("results");
                     JSONObject vidObj = (JSONObject) results.get(0);
-                    Log.d("Results 0 ", vidObj.toString());
+                    Log.d("Movie object", vidObj.toString());
 
                     // Get the key to make the youtube URL
                     youtubeKey = getString(R.string.youtubeKey);
@@ -66,10 +74,11 @@ public class PlayTrailerActivity extends YouTubeBaseActivity {
                     Log.d("Video key", vidKey);
                     Log.d("Youtube key", youtubeKey);
 
-                    YouTubePlayerView playerView = findViewById(R.id.player);
+                    YouTubePlayerView playerView = binding.player;
 
                     // initialize with API key stored in secrets.xml
-                    playerView.initialize(getString(R.string.youtubeKey), new YouTubePlayer.OnInitializedListener() {
+                    playerView.initialize(getString(R.string.youtubeKey),
+                            new YouTubePlayer.OnInitializedListener() {
                         @Override
                         public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                             YouTubePlayer youTubePlayer, boolean b) {
@@ -78,7 +87,8 @@ public class PlayTrailerActivity extends YouTubeBaseActivity {
                         }
                         @Override
                         public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                            YouTubeInitializationResult youTubeInitializationResult) {
+                                                            YouTubeInitializationResult
+                                                                    youTubeInitializationResult) {
                             // log the error
                             Log.e("MovieTrailerActivity", "Error initializing YouTube player");
                         }
