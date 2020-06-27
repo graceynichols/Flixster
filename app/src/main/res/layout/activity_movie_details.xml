@@ -12,8 +12,8 @@
         android:layout_height="17dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginBottom="67dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="35dp"
         app:srcCompat="@android:drawable/btn_star" />
 
     <TextView
@@ -124,8 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="252dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="149dp"
         android:text="Starring:"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -136,8 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="209dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="108dp"
         android:textSize="18sp" />
 
     <TextView
@@ -147,8 +147,8 @@
         android:layout_above="@+id/cast3"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="51dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginBottom="13dp"
         android:textSize="18sp" />
 
     <TextView
@@ -157,8 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginBottom="63dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="32dp"
         android:textSize="18sp" />
 
     <ImageView
@@ -167,8 +167,8 @@
         android:layout_height="17dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="213dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="111dp"
         app:srcCompat="@android:drawable/btn_star" />
 
     <ImageView
@@ -177,8 +177,8 @@
         android:layout_height="17dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginBottom="148dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="73dp"
         app:srcCompat="@android:drawable/btn_star" />
 
 </RelativeLayout>
